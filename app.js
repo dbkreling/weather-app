@@ -2,14 +2,13 @@ const yargs = require('yargs');
 
 const geocode = require('./geocode/geocode');
 const weather = require('./weather/weather');
-const defaultLocation = 'New York';
 
 const argv = yargs
     .options({
         a: {
-            // demand: true,
             alias: 'address',
-            description: 'Address to fetch the weather for (default: New York City)',
+            description: 'Address to fetch the weather for',
+            default: 'New York NY',
             string: true  // Reinforce we get data in the string format
         }
     })
