@@ -10,7 +10,8 @@ var getWeather = (lat, lng, callback) => {
             callback(undefined, {
                 temperature: body.currently.temperature,
                 apparentTemperature: body.currently.apparentTemperature,
-                summary: body.currently.summary
+                summary: body.currently.summary,
+                dailySummary: body.daily.summary
             });
         } else {
             callback('Unable to fetch weather');

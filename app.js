@@ -36,6 +36,7 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
                 console.log(`It is currently ${weatherResults.temperature}ºC` +
                     ` in ${results.cityName}, and it feels like ${weatherResults.apparentTemperature}ºC.`);
                 console.log(`The sky status is: ${weatherResults.summary}.`);
+                console.log(`Forecast for the week: ${weatherResults.dailySummary}`);
             }
         });
     }
