@@ -8,7 +8,7 @@ var geocodeAddress = (address, callback) => {
         json: true
     }, (error, response, body) => {
         if (error) {
-            calback('Unable to connect to Google servers.');
+            callback('Unable to connect to Google servers.');
         } else if (body.status === 'ZERO_RESULTS') {
             callback('Unable to find that address.');
         } else if (body.status === 'OK'){
