@@ -10,6 +10,10 @@ const argv = yargs
             description: 'Address to fetch the weather for',
             default: 'New York NY',
             string: true  // Reinforce we get data in the string format
+        },
+        s: {
+          alias: 'sky',
+          description: 'Display the sky conditions for the specified location'
         }
     })
     .help()
@@ -31,6 +35,7 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
                 console.log(results.address);
                 console.log(`It is currently ${weatherResults.temperature}ºC` +
                     ` in ${results.cityName}, and it feels like ${weatherResults.apparentTemperature}ºC.`);
+                console.log(`The sky status is: ${weatherResults.summary}.`);
             }
         });
     }
