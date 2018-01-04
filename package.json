@@ -18,6 +18,7 @@
   "homepage": "https://github.com/dbkreling/weather-app#readme",
   "dependencies": {
     "axios": "^0.13.1",
+    "moment": "^2.20.1",
     "request": "^2.73.0",
     "yargs": "^4.8.1"
   }

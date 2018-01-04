@@ -11,7 +11,11 @@ var getWeather = (lat, lng, callback) => {
                 temperature: body.currently.temperature,
                 apparentTemperature: body.currently.apparentTemperature,
                 summary: body.currently.summary,
-                dailySummary: body.daily.summary
+                dailySummary: body.daily.summary,
+                apparentTemperatureHigh: body.daily.data[0].apparentTemperatureHigh,
+                apparentTemperatureHighTime: body.daily.data[0].apparentTemperatureHighTime,
+                apparentTemperatureLow: body.daily.data[0].apparentTemperatureLow,
+                apparentTemperatureLowTime: body.daily.data[0].apparentTemperatureLowTime
             });
         } else {
             callback('Unable to fetch weather');
