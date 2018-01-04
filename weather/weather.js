@@ -12,10 +12,35 @@ var getWeather = (lat, lng, callback) => {
                 apparentTemperature: body.currently.apparentTemperature,
                 summary: body.currently.summary,
                 dailySummary: body.daily.summary,
-                apparentTemperatureHigh: body.daily.data[0].apparentTemperatureHigh,
-                apparentTemperatureHighTime: body.daily.data[0].apparentTemperatureHighTime,
-                apparentTemperatureLow: body.daily.data[0].apparentTemperatureLow,
-                apparentTemperatureLowTime: body.daily.data[0].apparentTemperatureLowTime
+                apparentTemperatureMax: body.daily.data[0].apparentTemperatureMax,
+                apparentTemperatureMin: body.daily.data[0].apparentTemperatureMin,
+                apparentTemperatureMaxTime: body.daily.data[0].apparentTemperatureMaxTime,
+                apparentTemperatureMinTime: body.daily.data[0].apparentTemperatureMinTime,
+                day0: {
+                    time: body.daily.data[0].time,
+                    maxTemp: body.daily.data[0].apparentTemperatureMax,
+                    minTemp: body.daily.data[0].apparentTemperatureMin
+                },
+                day1: {
+                    time: body.daily.data[1].time,
+                    maxTemp: body.daily.data[1].apparentTemperatureMax,
+                    minTemp: body.daily.data[1].apparentTemperatureMin
+                },
+                day2: {
+                    time: body.daily.data[2].time,
+                    maxTemp: body.daily.data[2].apparentTemperatureMax,
+                    minTemp: body.daily.data[2].apparentTemperatureMin
+                },
+                day3: {
+                    time: body.daily.data[3].time,
+                    maxTemp: body.daily.data[3].apparentTemperatureMax,
+                    minTemp: body.daily.data[3].apparentTemperatureMin
+                },
+                day4: {
+                    time: body.daily.data[4].time,
+                    maxTemp: body.daily.data[4].apparentTemperatureMax,
+                    minTemp: body.daily.data[4].apparentTemperatureMin
+                }
             });
         } else {
             callback('Unable to fetch weather');

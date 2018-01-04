@@ -43,10 +43,16 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
                 console.log(`It is currently ${weatherResults.temperature}ºC` +
                     ` in ${results.cityName}, and it feels like ${weatherResults.apparentTemperature}ºC.`);
                 console.log(`The sky status is: ${weatherResults.summary}.`);
-                console.log(`Highest Temperature will feel ${weatherResults.apparentTemperatureHigh}ºC at ` +
-                    convertUnixTime(`${weatherResults.apparentTemperatureHighTime}`));
-                console.log(`Lowest Temperature will feel ${weatherResults.apparentTemperatureLow}ºC at ` +
-                    convertUnixTime(`${weatherResults.apparentTemperatureLowTime}`));
+                console.log(`Lowest Temperature will feel ${weatherResults.apparentTemperatureMin}ºC at ` +
+                    convertUnixTime(`${weatherResults.apparentTemperatureMinTime}`));
+                console.log(`Highest Temperature will feel ${weatherResults.apparentTemperatureMax}ºC at ` +
+                    convertUnixTime(`${weatherResults.apparentTemperatureMaxTime}`));
+                console.log('Forecast for the next 5 days:\n\n'+
+                      ("         " + moment.unix(`${weatherResults.day0.time}`).format('dddd')).slice(-9) + `:\t Max: ${weatherResults.day0.maxTemp}º\tMin: ${weatherResults.day0.minTemp}º\t${weatherResults.summary}\n` +
+                      ("         " + moment.unix(`${weatherResults.day1.time}`).format('dddd')).slice(-9) + `:\t Max: ${weatherResults.day1.maxTemp}º\tMin: ${weatherResults.day1.minTemp}º\t${weatherResults.summary}\n` +
+                      ("         " + moment.unix(`${weatherResults.day2.time}`).format('dddd')).slice(-9) + `:\t Max: ${weatherResults.day2.maxTemp}º\tMin: ${weatherResults.day2.minTemp}º\t${weatherResults.summary}\n` +
+                      ("         " + moment.unix(`${weatherResults.day3.time}`).format('dddd')).slice(-9) + `:\t Max: ${weatherResults.day3.maxTemp}º\tMin: ${weatherResults.day3.minTemp}º\t${weatherResults.summary}\n` +
+                      ("         " + moment.unix(`${weatherResults.day4.time}`).format('dddd')).slice(-9) + `:\t Max: ${weatherResults.day4.maxTemp}º\tMin: ${weatherResults.day4.minTemp}º\t${weatherResults.summary}\n`);
             }
         });
     }
