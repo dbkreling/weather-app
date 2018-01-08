@@ -8,6 +8,7 @@ var getWeather = (lat, lng, callback) => {
     }, (error, response, body) => {
         if (!error && response.statusCode === 200) {
             callback(undefined, {
+                currentlyTime: body.currently.time,
                 temperature: body.currently.temperature,
                 apparentTemperature: body.currently.apparentTemperature,
                 summary: body.currently.summary,
@@ -16,11 +17,6 @@ var getWeather = (lat, lng, callback) => {
                 apparentTemperatureMin: body.daily.data[0].apparentTemperatureMin,
                 apparentTemperatureMaxTime: body.daily.data[0].apparentTemperatureMaxTime,
                 apparentTemperatureMinTime: body.daily.data[0].apparentTemperatureMinTime,
-                day0: {
-                    time: body.daily.data[0].time,
-                    maxTemp: body.daily.data[0].apparentTemperatureMax,
-                    minTemp: body.daily.data[0].apparentTemperatureMin
-                },
                 day1: {
                     time: body.daily.data[1].time,
                     maxTemp: body.daily.data[1].apparentTemperatureMax,
@@ -40,7 +36,12 @@ var getWeather = (lat, lng, callback) => {
                     time: body.daily.data[4].time,
                     maxTemp: body.daily.data[4].apparentTemperatureMax,
                     minTemp: body.daily.data[4].apparentTemperatureMin
-                }
+                },
+                day5: {
+                    time: body.daily.data[5].time,
+                    maxTemp: body.daily.data[5].apparentTemperatureMax,
+                    minTemp: body.daily.data[5].apparentTemperatureMin
+                },
             });
         } else {
             callback('Unable to fetch weather');
