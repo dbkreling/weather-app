@@ -14,7 +14,7 @@ var geocodeAddress = (address, callback) => {
         } else if (body.status === 'OK'){
             callback(undefined, {
                 address: body.results[0].formatted_address,
-                cityName: body.results[0].address_components[2].long_name,
+                cityName: body.results[0].address_components[0].long_name,
                 latitude: body.results[0].geometry.location.lat,
                 longitude: body.results[0].geometry.location.lng
             })
