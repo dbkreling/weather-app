@@ -12,22 +12,29 @@ const argv = yargs
             default: 'New York NY',
             string: true  // Reinforce we get data in the string format
         },
-        s: {
-          alias: 'sky',
-          description: 'Display the sky conditions for the specified location'
+        w: {
+            alias: 'week',
+            type: 'boolean',
+            description: 'Display the forecast for the next 5 days'
         }
     })
     .help()
-    .alias('help', 'h')
-    .argv;
+        .alias('help', 'h')
+        .argv;
 
 if (!argv.address) {
-  argv.address = defaultLocation;
+    argv.address = defaultLocation;
 }
 
-var convertUnixTime = (unixTime) => {
+var convertToHours = (unixTime) => {
     if (moment.unix(unixTime).isValid()) {
         return moment.unix(unixTime).format('HH:mm');
+    }
+}
+
+var convertToWeekday = (unixTime) => {
+    if (moment.unix(unixTime).isValid()) {
+        return ("         " + moment.unix(unixTime).format('dddd')).slice(-9);
     }
 }
 
@@ -40,13 +47,22 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
                 console.log(errorMessage);
             } else {
                 console.log(results.address);
-                console.log(`It is currently ${weatherResults.temperature}ºC` +
+                console.log(moment.unix(`${weatherResults.currentlyTime}`).format('dddd, MMMM Do, YYYY'));
+                console.log(`\nIt is currently ${weatherResults.temperature}ºC` +
                     ` in ${results.cityName}, and it feels like ${weatherResults.apparentTemperature}ºC.`);
                 console.log(`The sky status is: ${weatherResults.summary}.`);
-                console.log(`Highest Temperature will feel ${weatherResults.apparentTemperatureHigh}ºC at ` +
-                    convertUnixTime(`${weatherResults.apparentTemperatureHighTime}`));
-                console.log(`Lowest Temperature will feel ${weatherResults.apparentTemperatureLow}ºC at ` +
-                    convertUnixTime(`${weatherResults.apparentTemperatureLowTime}`));
+                console.log(`Lowest Temperature today will feel ${weatherResults.apparentTemperatureMin}ºC at ` +
+                    convertToHours(`${weatherResults.apparentTemperatureMinTime}`));
+                console.log(`Highest Temperature today will feel ${weatherResults.apparentTemperatureMax}ºC at ` +
+                                convertToHours(`${weatherResults.apparentTemperatureMaxTime}`));
+                if (argv.week) {
+                    console.log('\nThe forecast for the next 5 days is:\n\n'+
+                    convertToWeekday(`${weatherResults.day1.time}`) + `:\t Max: ${Number(weatherResults.day1.maxTemp).toFixed(2)}º\tMin: ${Number(weatherResults.day1.minTemp).toFixed(2)}º\t${weatherResults.summary}\n` +
+                    convertToWeekday(`${weatherResults.day2.time}`) + `:\t Max: ${Number(weatherResults.day2.maxTemp).toFixed(2)}º\tMin: ${Number(weatherResults.day2.minTemp).toFixed(2)}º\t${weatherResults.summary}\n` +
+                    convertToWeekday(`${weatherResults.day3.time}`) + `:\t Max: ${Number(weatherResults.day3.maxTemp).toFixed(2)}º\tMin: ${Number(weatherResults.day3.minTemp).toFixed(2)}º\t${weatherResults.summary}\n` +
+                    convertToWeekday(`${weatherResults.day4.time}`) + `:\t Max: ${Number(weatherResults.day4.maxTemp).toFixed(2)}º\tMin: ${Number(weatherResults.day4.minTemp).toFixed(2)}º\t${weatherResults.summary}\n` +
+                    convertToWeekday(`${weatherResults.day5.time}`) + `:\t Max: ${Number(weatherResults.day5.maxTemp).toFixed(2)}º\tMin: ${Number(weatherResults.day5.minTemp).toFixed(2)}º\t${weatherResults.summary}\n`);
+                }
             }
         });
     }
